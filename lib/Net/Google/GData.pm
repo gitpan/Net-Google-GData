@@ -1,45 +1,22 @@
 package Net::Google::GData;
 
+# ABSTRACT: Handle basic communication with Google services
+
 use warnings;
 use strict;
 
-=head1 NAME
+our $VERSION = '0.03'; # VERSION
 
-Net::Google::GData - Handle basic communication with Google services
-
-=head1 VERSION
-
-Version 0.01
-
-=cut
-
-our $VERSION = '0.01';
-
-=head1 SYNOPSIS
-
-Net::Google::GData handles the basic communication details with Google services.
-
-This module should normally only be used by modules subclassing GData.
-
-=cut
 
 use Carp;
 use LWP::UserAgent;
 
 use base qw( Class::Accessor  Class::ErrorHandler Net::Google::Authenticate );
 
-__PACKAGE__->mk_accessors(qw(
+__PACKAGE__->mk_accessors( qw(
 
-));
+) );
 
-=head1 FUNCTIONS
-
-=head2 new
-
-Typical constructor.  You can optionally pass in a hash of data to set values.  Unknown
-data/value pairs will be silently ignored.
-
-=cut
 
 sub new {
 
@@ -60,39 +37,21 @@ sub new {
 
     if ( my $method = $self->can( $data[$i] ) ) {
 
-      $self->$method( $data[$i+1] );
+      $self->$method( $data[ $i + 1 ] );
 
     }
   }
 
   return $self;
 
-}
+} ## end sub new
 
-=head2 get
 
-=head2 post
-
-=head2 put
-
-=head2 delete
-
-=cut
-
-sub GET { }
-sub POST { }
-sub PUT { }
+sub GET    { }
+sub POST   { }
+sub PUT    { }
 sub DELETE { }
 
-=head1 PRIVATE FUNCTIONS
-
-=head2 _ua
-
-Private method that creates and holds a LWP user agent.
-
-Does not accept any parameters.
-
-=cut
 
 sub _ua {
 
@@ -116,57 +75,99 @@ sub _ua {
 
   return $ua;
 
-}
+} ## end sub _ua
+
+1;  # End of Net::Google::GData
+
+__END__
+
+=pod
+
+=encoding utf-8
+
+=for :stopwords Alan Young
+
+=head1 NAME
+
+Net::Google::GData - Handle basic communication with Google services
+
+=head1 VERSION
+
+  This document describes v0.03 of Net::Google::GData - released December 25, 2012 as part of Net-Google-GData.
+
+=head1 SYNOPSIS
+
+THIS MODULE IS NOT MAINTAINED ANYMORE
+
+I fixed what was causing cpantesters to barf. I don't think the API this was written for is even valid anymore.
+
+Net::Google::GData handles the basic communication details with Google services.
+
+This module should normally only be used by modules subclassing GData.
+
+=head1 DESCRIPTION
+
+would go here
+
+=head1 FUNCTIONS
+
+=head2 new
+
+Typical constructor.  You can optionally pass in a hash of data to set values.  Unknown
+data/value pairs will be silently ignored.
+
+=head2 GET
+
+=head2 POST
+
+=head2 PUT
+
+=head2 DELETE
+
+=head1 PRIVATE FUNCTIONS
+
+=head2 _ua
+
+Private method that creates and holds a LWP user agent.
+
+Does not accept any parameters.
+
+=head1 INSTALLATION
+
+See perlmodinstall for information and options on installing Perl modules.
 
 =head1 AUTHOR
 
-Alan Young, C<< <alansyoungiii at gmail.com> >>
+Alan Young <harleypig@gmail.com>
 
-=head1 BUGS
+=head1 COPYRIGHT AND LICENSE
 
-Please report any bugs or feature requests to
-C<bug-net-google-gdata at rt.cpan.org>, or through the web interface at
-L<http://rt.cpan.org/NoAuth/ReportBug.html?Queue=Net-Google-GData>.
-I will be notified, and then you'll automatically be notified of progress on
-your bug as I make changes.
+This software is copyright (c) 2012 by Alan Young.
 
-=head1 SUPPORT
+This is free software; you can redistribute it and/or modify it under
+the same terms as the Perl 5 programming language system itself.
 
-You can find documentation for this module with the perldoc command.
+=head1 DISCLAIMER OF WARRANTY
 
-    perldoc Net::Google::GData
+BECAUSE THIS SOFTWARE IS LICENSED FREE OF CHARGE, THERE IS NO WARRANTY
+FOR THE SOFTWARE, TO THE EXTENT PERMITTED BY APPLICABLE LAW. EXCEPT
+WHEN OTHERWISE STATED IN WRITING THE COPYRIGHT HOLDERS AND/OR OTHER
+PARTIES PROVIDE THE SOFTWARE "AS IS" WITHOUT WARRANTY OF ANY KIND,
+EITHER EXPRESSED OR IMPLIED, INCLUDING, BUT NOT LIMITED TO, THE
+IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+PURPOSE. THE ENTIRE RISK AS TO THE QUALITY AND PERFORMANCE OF THE
+SOFTWARE IS WITH YOU. SHOULD THE SOFTWARE PROVE DEFECTIVE, YOU ASSUME
+THE COST OF ALL NECESSARY SERVICING, REPAIR, OR CORRECTION.
 
-You can also look for information at:
-
-=over 4
-
-=item * AnnoCPAN: Annotated CPAN documentation
-
-L<http://annocpan.org/dist/Net-Google-GData>
-
-=item * CPAN Ratings
-
-L<http://cpanratings.perl.org/d/Net-Google-GData>
-
-=item * RT: CPAN's request tracker
-
-L<http://rt.cpan.org/NoAuth/Bugs.html?Dist=Net-Google-GData>
-
-=item * Search CPAN
-
-L<http://search.cpan.org/dist/Net-Google-GData>
-
-=back
-
-=head1 ACKNOWLEDGEMENTS
-
-=head1 COPYRIGHT & LICENSE
-
-Copyright 2007 Alan Young, all rights reserved.
-
-This program is free software; you can redistribute it and/or modify it
-under the same terms as Perl itself.
+IN NO EVENT UNLESS REQUIRED BY APPLICABLE LAW OR AGREED TO IN WRITING
+WILL ANY COPYRIGHT HOLDER, OR ANY OTHER PARTY WHO MAY MODIFY AND/OR
+REDISTRIBUTE THE SOFTWARE AS PERMITTED BY THE ABOVE LICENCE, BE LIABLE
+TO YOU FOR DAMAGES, INCLUDING ANY GENERAL, SPECIAL, INCIDENTAL, OR
+CONSEQUENTIAL DAMAGES ARISING OUT OF THE USE OR INABILITY TO USE THE
+SOFTWARE (INCLUDING BUT NOT LIMITED TO LOSS OF DATA OR DATA BEING
+RENDERED INACCURATE OR LOSSES SUSTAINED BY YOU OR THIRD PARTIES OR A
+FAILURE OF THE SOFTWARE TO OPERATE WITH ANY OTHER SOFTWARE), EVEN IF
+SUCH HOLDER OR OTHER PARTY HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH
+DAMAGES.
 
 =cut
-
-1; # End of Net::Google::GData
